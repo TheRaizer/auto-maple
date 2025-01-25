@@ -10,19 +10,16 @@ from src.gui import Menu, View, Edit, Settings
 
 class GUI:
     DISPLAY_FRAME_RATE = 30
-    RESOLUTIONS = {
-        'DEFAULT': '800x800',
-        'Edit': '1400x800'
-    }
+    RESOLUTIONS = {"DEFAULT": "800x800", "Edit": "1400x800"}
 
     def __init__(self):
         config.gui = self
 
         self.root = tk.Tk()
-        self.root.title('Auto Maple')
-        icon = tk.PhotoImage(file='assets/icon.png')
+        self.root.title("Auto Maple")
+        icon = tk.PhotoImage(file="assets/icon.png")
         self.root.iconphoto(False, icon)
-        self.root.geometry(GUI.RESOLUTIONS['DEFAULT'])
+        self.root.geometry(GUI.RESOLUTIONS["DEFAULT"])
         self.root.resizable(False, False)
 
         # Initialize GUI variables
@@ -38,8 +35,8 @@ class GUI:
         self.edit = Edit(self.navigation)
         self.settings = Settings(self.navigation)
 
-        self.navigation.pack(expand=True, fill='both')
-        self.navigation.bind('<<NotebookTabChanged>>', self._resize_window)
+        self.navigation.pack(expand=True, fill="both")
+        self.navigation.bind("<<NotebookTabChanged>>", self._resize_window)
         self.root.focus()
 
     def set_routine(self, arr):
@@ -52,7 +49,7 @@ class GUI:
         """
 
         self.view.details.clear_info()
-        self.view.status.set_routine('')
+        self.view.status.set_routine("")
 
         self.edit.minimap.redraw()
         self.edit.routine.commands.clear_contents()
@@ -64,13 +61,13 @@ class GUI:
 
         nav = e.widget
         curr_id = nav.select()
-        nav.nametowidget(curr_id).focus()      # Focus the current Tab
-        page = nav.tab(curr_id, 'text')
-        if self.root.state() != 'zoomed':
+        nav.nametowidget(curr_id).focus()  # Focus the current Tab
+        page = nav.tab(curr_id, "text")
+        if self.root.state() != "zoomed":
             if page in GUI.RESOLUTIONS:
                 self.root.geometry(GUI.RESOLUTIONS[page])
             else:
-                self.root.geometry(GUI.RESOLUTIONS['DEFAULT'])
+                self.root.geometry(GUI.RESOLUTIONS["DEFAULT"])
 
     def start(self):
         """Starts the GUI as well as any scheduled functions."""
@@ -100,6 +97,6 @@ class GUI:
             time.sleep(5)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     gui = GUI()
     gui.start()

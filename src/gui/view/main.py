@@ -10,7 +10,7 @@ from src.gui.interfaces import Tab
 
 class View(Tab):
     def __init__(self, parent, **kwargs):
-        super().__init__(parent, 'View', **kwargs)
+        super().__init__(parent, "View", **kwargs)
 
         self.grid_columnconfigure(0, weight=1)
         self.grid_columnconfigure(3, weight=1)

@@ -7,7 +7,7 @@ from src.gui.interfaces import LabelFrame, Frame
 
 class Routine(LabelFrame):
     def __init__(self, parent, **kwargs):
-        super().__init__(parent, 'Routine', **kwargs)
+        super().__init__(parent, "Routine", **kwargs)
 
         self.rowconfigure(0, weight=1)
         self.columnconfigure(0, weight=1)

@@ -18,6 +18,7 @@ def update(func):
         config.gui.set_routine(self.display)
         config.gui.view.details.update_details()
         return result
+
     return f
 
 
@@ -28,6 +29,7 @@ def dirty(func):
         result = func(self, *args, **kwargs)
         self.dirty = True
         return result
+
     return f
 
 
@@ -36,11 +38,11 @@ class Routine:
 
     def __init__(self):
         self.dirty = False
-        self.path = ''
+        self.path = ""
         self.labels = {}
         self.index = 0
         self.sequence = []
-        self.display = []       # Updated alongside sequence
+        self.display = []  # Updated alongside sequence
 
     @dirty
     @update
@@ -68,10 +70,10 @@ class Routine:
         """Moves the component at index I upward if possible."""
 
         if i > 0:
-            temp_s = self.sequence[i-1]
-            temp_d = self.display[i-1]
-            self.sequence[i-1] = self.sequence[i]
-            self.display[i-1] = self.display[i]
+            temp_s = self.sequence[i - 1]
+            temp_d = self.display[i - 1]
+            self.sequence[i - 1] = self.sequence[i]
+            self.display[i - 1] = self.display[i]
             self.sequence[i] = temp_s
             self.display[i] = temp_d
             return i - 1
@@ -81,10 +83,10 @@ class Routine:
     @update
     def move_component_down(self, i):
         if i < len(self.sequence) - 1:
-            temp_s = self.sequence[i+1]
-            temp_d = self.display[i+1]
-            self.sequence[i+1] = self.sequence[i]
-            self.display[i+1] = self.display[i]
+            temp_s = self.sequence[i + 1]
+            temp_d = self.display[i + 1]
+            self.sequence[i + 1] = self.sequence[i]
+            self.display[i + 1] = self.display[i]
             self.sequence[i] = temp_s
             self.display[i] = temp_d
             return i + 1
@@ -100,8 +102,8 @@ class Routine:
 
         point = self.sequence[i]
         if j > 0:
-            temp = point.commands[j-1]
-            point.commands[j-1] = point.commands[j]
+            temp = point.commands[j - 1]
+            point.commands[j - 1] = point.commands[j]
             point.commands[j] = temp
             return j - 1
         return j
@@ -111,8 +113,8 @@ class Routine:
     def move_command_down(self, i, j):
         point = self.sequence[i]
         if j < len(point.commands) - 1:
-            temp = point.commands[j+1]
-            point.commands[j+1] = point.commands[j]
+            temp = point.commands[j + 1]
+            point.commands[j + 1] = point.commands[j]
             point.commands[j] = temp
             return j + 1
         return j
@@ -169,11 +171,11 @@ class Routine:
             result.append(item.encode())
             if isinstance(item, Point):
                 for c in item.commands:
-                    result.append(' ' * 4 + c.encode())
-        result.append('')
+                    result.append(" " * 4 + c.encode())
+        result.append("")
 
-        with open(file_path, 'w') as file:
-            file.write('\n'.join(result))
+        with open(file_path, "w") as file:
+            file.write("\n".join(result))
         self.dirty = False
 
         utils.print_separator()
@@ -183,7 +185,7 @@ class Routine:
         self.index = 0
         self.set([])
         self.dirty = False
-        self.path = ''
+        self.path = ""
         config.layout = None
         settings.reset()
 
@@ -203,13 +205,15 @@ class Routine:
         if not file:
             if self.path:
                 file = self.path
-                print(' *  File path not provided, using previously loaded routine')
+                print(" *  File path not provided, using previously loaded routine")
             else:
-                print('[!] File path not provided, no routine was previously loaded either')
+                print(
+                    "[!] File path not provided, no routine was previously loaded either"
+                )
                 return False
 
         ext = splitext(file)[1]
-        if ext != '.csv':
+        if ext != ".csv":
             print(f" !  '{ext}' is not a supported file extension.")
             return False
 
@@ -230,7 +234,7 @@ class Routine:
 
     def compile(self, file):
         self.labels = {}
-        with open(file, newline='') as f:
+        with open(file, newline="") as f:
             csv_reader = csv.reader(f, skipinitialspace=True)
             curr_point = None
             line = 1
@@ -250,7 +254,7 @@ class Routine:
         if row and isinstance(row, list):
             first, rest = row[0].lower(), row[1:]
             args, kwargs = utils.separate_args(rest)
-            line_error = f' !  Line {i}: '
+            line_error = f" !  Line {i}: "
 
             if first in SYMBOLS:
                 c = SYMBOLS[first]
