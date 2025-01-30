@@ -7,30 +7,38 @@ from src.modules.capture import Capture
 from src.modules.gui import GUI
 from src.modules.listener import Listener
 from src.modules.notifier import Notifier
+from pyuac import main_requires_admin
 
-bot = Bot()
 
-capture = Capture()
-notifier = Notifier()
-listener = Listener()
+@main_requires_admin
+def main():
+    bot = Bot()
 
-bot.start()
-while not bot.ready:
-    time.sleep(0.01)
+    capture = Capture()
+    notifier = Notifier()
+    listener = Listener()
 
-capture.start()
-while not capture.ready:
-    time.sleep(0.01)
+    bot.start()
+    while not bot.ready:
+        time.sleep(0.01)
 
-notifier.start()
-while not notifier.ready:
-    time.sleep(0.01)
+    capture.start()
+    while not capture.ready:
+        time.sleep(0.01)
 
-listener.start()
-while not listener.ready:
-    time.sleep(0.01)
+    notifier.start()
+    while not notifier.ready:
+        time.sleep(0.01)
 
-print("\n[~] Successfully initialized Auto Maple")
+    listener.start()
+    while not listener.ready:
+        time.sleep(0.01)
 
-gui = GUI()
-gui.start()
+    print("\n[~] Successfully initialized Auto Maple")
+
+    gui = GUI()
+    gui.start()
+
+
+if __name__ == "__main__":
+    main()

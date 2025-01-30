@@ -6,6 +6,10 @@ Auto Maple is an intelligent Python bot that plays MapleStory, a 2D side-scrolli
 
 Community-created resources, such as **command books** for each class and **routines** for each map, can be found in the **[resources repository](https://github.com/tanjeffreyz/auto-maple-resources)**.
 
+Requirements:
+- Maple must run in 1366x768
+- Script must run in admin mode. If running main.py it should do this by default.
+
 <br>
 
 
